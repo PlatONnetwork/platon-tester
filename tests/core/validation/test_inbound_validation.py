@@ -9,16 +9,16 @@ try:
 except ImportError:
     import mock
 
-from eth_utils import (
+from platon_utils import (
     to_dict,
     encode_hex,
     decode_hex,
 )
 
-from eth_tester.exceptions import (
+from platon_tester.exceptions import (
     ValidationError,
 )
-from eth_tester.validation import DefaultValidator
+from platon_tester.validation import DefaultValidator
 
 
 @pytest.fixture

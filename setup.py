@@ -13,7 +13,7 @@ extras_require = {
     'test': [
         'pytest>=4.4.0,<5.0.0',
         'pytest-xdist>=1.22.2,<2',
-        'eth-hash[pycryptodome]>=0.1.4,<1.0.0',
+        'platon-hash[pycryptodome]>=1.2.0',
     ],
     'dev': [
         'bumpversion>=0.5.3,<1.0.0',
@@ -24,8 +24,8 @@ extras_require = {
         # Pin py-evm to exact version, until it leaves alpha.
         # EVM is very high velocity and might change API at each alpha.
         "py-evm==0.4.0a4",
-        "eth-hash[pysha3]>=0.1.4,<1.0.0;implementation_name=='cpython'",
-        "eth-hash[pycryptodome]>=0.1.4,<1.0.0;implementation_name=='pypy'",
+        "platon-hash[pysha3]>=0.1.4,<1.0.0;implementation_name=='cpython'",
+        "platon-hash[pycryptodome]>=0.1.4,<1.0.0;implementation_name=='pypy'",
     ],
 }
 
@@ -42,29 +42,29 @@ with open('./README.md') as readme:
     long_description = readme.read()
 
 setup(
-    name='eth-tester',
+    name='platon-tester',
     # *IMPORTANT*: Don't manually change the version here. Use the 'bumpversion' utility.
-    version='0.5.0-beta.4',
-    description="""Tools for testing Ethereum applications.""",
+    version='1.2.0',
+    description="""Tools for testing Platon applications.""",
     long_description=long_description,
     long_description_content_type='text/markdown',
-    author='Piper Merriam',
-    author_email='pipermerriam@gmail.com',
-    url='https://github.com/ethereum/eth-tester',
+    author='Shinnng',
+    author_email='Shinnng@outlook.com',
+    url='https://github.com/platonnetwork/platon-tester',
     include_package_data=True,
     install_requires=[
-        "eth-abi>=2.0.0b4,<3.0.0",
-        "eth-keys>=0.2.1,<0.4.0",
-        "eth-utils>=1.4.1,<2.0.0",
+        "platon-abi>=1.2.0",
+        "platon-keys>=1.2.0",
+        "platon-utils>=1.2.0",
         "rlp>=1.1.0,<3",
         "semantic_version>=2.6.0,<3.0.0",
     ],
     extras_require=extras_require,
     python_requires='>=3.6.8,<4',
-    py_modules=['eth_tester'],
+    py_modules=['platon_tester'],
     license="MIT",
     zip_safe=False,
-    keywords='ethereum',
+    keywords='platon',
     packages=find_packages(exclude=["tests", "tests.*"]),
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',

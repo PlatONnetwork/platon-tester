@@ -1,10 +1,10 @@
 import pytest
 
-from eth_utils import (
+from platon_utils import (
     decode_hex,
 )
 
-from eth_tester.utils.accounts import (
+from platon_tester.utils.accounts import (
     private_key_to_address,
 )
 

@@ -1,25 +1,25 @@
-# Ethereum Tester
+# Platon Tester
 
-[![Join the chat at https://gitter.im/ethereum/eth-tester](https://badges.gitter.im/ethereum/eth-tester.svg)](https://gitter.im/ethereum/eth-tester)
+[![Join the chat at https://gitter.im/platonnetwork/platon-tester](https://badges.gitter.im/platonnetwork/platon-tester.svg)](https://gitter.im/platonnetwork/platon-tester)
 
-[![Build Status](https://travis-ci.org/ethereum/eth-tester.png)](https://travis-ci.org/ethereum/eth-tester)
+[![Build Status](https://travis-ci.org/platonnetwork/platon-tester.png)](https://travis-ci.org/platonnetwork/platon-tester)
 
 
-Tools for testing ethereum based applications.
+Tools for testing platon based applications.
 
 
 ## Installation
 
 ```sh
-pip install eth-tester
+pip install platon-tester
 ```
 
 
 ## Quick Start
 
 ```python
->>> from eth_tester import EthereumTester
->>> t = EthereumTester()
+>>> from platon_tester import PlatonTester
+>>> t = PlatonTester()
 >>> t.get_accounts()
 ('0x82A978B3f5962A5b0957d9ee9eEf472EE55B42F1',
  '0x7d577a597B2742b498Cb5Cf0C26cDCD726d39E6e',
@@ -125,15 +125,15 @@ new version explicitly, like `bumpversion --new-version 4.0.0-alpha.1 devnum`
 
 ## Input and output data formats
 
-The ethereum tester library strictly enforces the following input formats and
+The platon tester library strictly enforces the following input formats and
 types.
 
 * Hexidecimal values **must** be text (not byte) strings.  The `0x` prefix is optional.
-* Any address which contains mixed-case alpha characters will be validated as a checksummed address as specified by [EIP-55](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md)
+* Any address which contains mixed-case alpha characters will be validated as a checksummed address as specified by [EIP-55](https://github.com/platonnetwork/EIPs/blob/master/EIPS/eip-55.md)
 * 32-byte hashes **must** be hexidecimal encoded.
 * Numeric values **must** be in their integer representation.
 
-Similarly, ethereum tester ensures that return values conform to similar rules.
+Similarly, platon tester ensures that return values conform to similar rules.
 
 * 32-byte hashes will be returned in their hexidecimal encoded representation.
 * Addresses will be returned in their hexidecimal representation and EIP55 checksummed.
@@ -152,15 +152,15 @@ Any `block_number` parameter will accept the following string values.
 > Note: These **must** be text strings (not byte stringS)
 
 
-## `eth_tester.EthereumTester`
+## `platon_tester.PlatonTester`
 
 ### API
 
 ### Instantiation
 
-* `eth_tester.EthereumTester(backend=None, validator=None, normalizer=None, auto_mine_transactions=True, fork_blocks=None)`
+* `platon_tester.PlatonTester(backend=None, validator=None, normalizer=None, auto_mine_transactions=True, fork_blocks=None)`
 
-The `EthereumTester` object is the sole API entrypoint.  Instantiation of this
+The `PlatonTester` object is the sole API entrypoint.  Instantiation of this
 object accepts the following parameters.
 
 - `backend`: The chain backend being used.  See the [chain backends](#backends)
@@ -171,17 +171,17 @@ object accepts the following parameters.
 
 
 ```python
->>> from eth_tester import EthereumTester
->>> t = EthereumTester()
+>>> from platon_tester import PlatonTester
+>>> t = PlatonTester()
 >>> t
-<eth_tester.main.EthereumTester at 0x102255710>
+<platon_tester.main.PlatonTester at 0x102255710>
 ```
 
 
 ### Fork Rules
 <a id="fork-rules"></a>
 
-Ethereum tester uses the Byzantium rules, starting at block 0.
+Platon tester uses the Byzantium rules, starting at block 0.
 
 ### Time Travel
 <a id="time-travel"></a>
@@ -190,7 +190,7 @@ The chain can only time travel forward in time.
 
 <a id="api-time_travel"></a>
 
-#### `EthereumTester.time_travel(timestamp)`
+#### `PlatonTester.time_travel(timestamp)`
 
 The `timestamp` must be an integer, strictly greater than the current timestamp
 of the latest block.  
@@ -205,14 +205,14 @@ parameter of these methods **must** be a hexidecimal encoded address.
 
 <a id="api-mine_blocks"></a>
 
-#### `EthereumTester.mine_blocks(num_blocks=1, coinbase=None)`
+#### `PlatonTester.mine_blocks(num_blocks=1, coinbase=None)`
 
 Mines `num_blocks` new blocks, returning an iterable of the newly mined block hashes.
 
 
 <a id="api-mine_block"></a>
 
-#### `EthereumTester.mine_block(coinbase=None)`
+#### `PlatonTester.mine_block(coinbase=None)`
 
 Mines a single new block, returning the mined block's hash.
 
@@ -225,13 +225,13 @@ By default all transactions are mined immediately.  This means that each transac
 
 <a id="api-enable_auto_mine_transactions"></a>
 
-#### `EthereumTester.enable_auto_mine_transactions()`
+#### `PlatonTester.enable_auto_mine_transactions()`
 
 Turns on auto-mining of transactions.
 
 <a id="api-disable_auto_mine_transactions"></a>
 
-#### `EthereumTester.disable_auto_mine_transactions()`
+#### `PlatonTester.disable_auto_mine_transactions()`
 
 Turns **off** auto-mining of transactions.
 
@@ -242,7 +242,7 @@ The following API can be used to interact with account data.  The `account`
 parameter in these methods **must** be a hexidecimal encode address.
 
 <a id="api-get_accounts"></a>
- `EthereumTester.get_accounts()`
+ `PlatonTester.get_accounts()`
 
 Returns an iterable of the accounts that the tester knows about.  All accounts
 in this list will be EIP55 checksummed.
@@ -258,7 +258,7 @@ in this list will be EIP55 checksummed.
 
 <a id="api-add_account"></a>
 
-#### `EthereumTester.add_account(private_key, password=None)`
+#### `PlatonTester.add_account(private_key, password=None)`
 
 Adds a new account for the given private key.  Returns the hex encoded address
 of the added account.
@@ -280,7 +280,7 @@ as the second parameter.
 
 <a id="api-unlock_account"></a>
 
-#### `EthereumTester.unlock_account(account, password, unlock_seconds=None)`
+#### `PlatonTester.unlock_account(account, password, unlock_seconds=None)`
 
 Unlocks the given account if the provided password matches.
 
@@ -306,7 +306,7 @@ seconds.
 
 <a id="api-lock_account"></a>
 
-#### `EthereumTester.lock_account(account)`
+#### `PlatonTester.lock_account(account)`
 
 Locks the provide account.  
 
@@ -318,7 +318,7 @@ Raises a `ValidationError` if:
 
 <a id="api-get_balance"></a>
 
-#### `EthereumTester.get_balance(account) -> integer`
+#### `PlatonTester.get_balance(account) -> integer`
 
 Returns the balance, in wei, for the provided account.
 
@@ -330,7 +330,7 @@ Returns the balance, in wei, for the provided account.
 
 <a id="api-get_nonce"></a>
 
-#### `EthereumTester.get_nonce(account) -> integer`
+#### `PlatonTester.get_nonce(account) -> integer`
 
 Returns the nonce for the provided account.
 
@@ -341,7 +341,7 @@ Returns the nonce for the provided account.
 
 <a id="api-get_code"></a>
 
-#### `EthereumTester.get_code(account) -> hex string`
+#### `PlatonTester.get_code(account) -> hex string`
 
 Returns the code for the given account.
 
@@ -355,7 +355,7 @@ Returns the code for the given account.
 
 <a id="api-get_transaction_by_hash"></a>
 
-#### `EthereumTester.get_transaction_by_hash(transaction_hash) -> transaction-object`
+#### `PlatonTester.get_transaction_by_hash(transaction_hash) -> transaction-object`
 
 Returns the transaction for the given hash, raising a
 [`TransactionNotFound`](#errors-TransactionNotFound) exception if the
@@ -384,7 +384,7 @@ transaction cannot be found.
 
 <a id="api-get_block_by_number"></a>
 
-#### `EthereumTester.get_block_by_number(block_number, full_transactions=False) -> block-object`
+#### `PlatonTester.get_block_by_number(block_number, full_transactions=False) -> block-object`
 
 Returns the block for the given `block_number`.  See [block
 numbers](#block-numbers) for named block numbers you can use.  If
@@ -419,7 +419,7 @@ cannot be found.
 
 <a id="api-get_block_by_hash"></a>
 
-#### `EthereumTester.get_block_by_hash(block_hash, full_transactions=True) -> block-object`
+#### `PlatonTester.get_block_by_hash(block_hash, full_transactions=True) -> block-object`
 
 Returns the block for the given `block_hash`.  The `full_transactions`
 parameter behaves the same as in
@@ -452,7 +452,7 @@ cannot be found.
 
 <a id="api-get_transaction_receipt"></a>
 
-#### `EthereumTester.get_transaction_receipt(transaction_hash)`
+#### `PlatonTester.get_transaction_receipt(transaction_hash)`
 
 Returns the receipt for the given `transaction_hash`, raising
 [`TransactionNotFound`](#errors-TransactionNotFound) if no transaction can be
@@ -502,7 +502,7 @@ values.
 
 <a id="api-send_transaction"></a>
 
-#### `EthereumTester.send_transaction(transaction) -> transaction_hash`
+#### `PlatonTester.send_transaction(transaction) -> transaction_hash`
 
 Sends the provided `transaction` object, returning the `transaction_hash` for
 the sent transaction.
@@ -510,7 +510,7 @@ the sent transaction.
 
 <a id="api-call"></a>
 
-#### `EthereumTester.call(transaction, block_number='latest')`
+#### `PlatonTester.call(transaction, block_number='latest')`
 
 Executes the provided `transaction` object at the evm state from the block
 denoted by the `block_number` parameter, returning the resulting bytes return
@@ -518,7 +518,7 @@ value from the evm.
 
 <a id="api-estimate_gas"></a>
 
-#### `EthereumTester.estimate_gas(transaction)`
+#### `PlatonTester.estimate_gas(transaction)`
 
 Executes the provided `transaction` object, measuring and returning the gas
 consumption.
@@ -528,7 +528,7 @@ consumption.
 
 <a id="api-create_block_filter"></a>
 
-#### `EthereumTester.create_block_filter() -> integer`
+#### `PlatonTester.create_block_filter() -> integer`
 
 Creates a new filter for newly mined blocks.  Returns the `filter_id` which can
 be used to retrieve the block hashes for the mined blocks.
@@ -555,7 +555,7 @@ be used to retrieve the block hashes for the mined blocks.
 
 <a id="api-create_pending_transaction_filter"></a>
 
-#### `EthereumTester.create_pending_transaction_filter() -> integer`
+#### `PlatonTester.create_pending_transaction_filter() -> integer`
 
 Creates a new filter for pending transactions.  Returns the `filter_id` which
 can be used to retrieve the transaction hashes for the pending transactions.
@@ -581,7 +581,7 @@ can be used to retrieve the transaction hashes for the pending transactions.
 
 <a id="api-create_log_filter"></a>
 
-#### `EthereumTester.create_log_filter(from_block=None, to_block=None, address=None, topics=None) -> integer`
+#### `PlatonTester.create_log_filter(from_block=None, to_block=None, address=None, topics=None) -> integer`
 
 Creates a new filter for logs produced by transactions.  The parameters for
 this function can be used to filter the log entries.  
@@ -619,7 +619,7 @@ See [the filtering guide](#guide-filtering) for detailed information on how to u
 
 <a id="api-delete_filter"></a>
 
-#### `EthereumTester.delete_filter(filter_id)`
+#### `PlatonTester.delete_filter(filter_id)`
 
 Removes the filter for the provide `filter_id`.  If no filter is found for the
 given `filter_id`, raises [`FilterNotFound`](#errors-FilterNotFound).
@@ -627,7 +627,7 @@ given `filter_id`, raises [`FilterNotFound`](#errors-FilterNotFound).
 
 <a id="api-get_only_filter_changes"></a>
 
-#### `EthereumTester.get_only_filter_changes(filter_id) -> transaction_hash or block_hash or log_entry`
+#### `PlatonTester.get_only_filter_changes(filter_id) -> transaction_hash or block_hash or log_entry`
 
 Returns all new values for the provided `filter_id` that have not previously
 been returned through this API.  Raises
@@ -636,7 +636,7 @@ been returned through this API.  Raises
 
 <a id="api-get_only_filter_changes"></a>
 
-#### `EthereumTester.get_all_filter_logs(filter_id) -> transaction_hash or block_hash or log_entry`
+#### `PlatonTester.get_all_filter_logs(filter_id) -> transaction_hash or block_hash or log_entry`
 
 Returns all values for the provided `filter_id`. Raises
 [`FilterNotFound`](#errors-FilterNotFound) if no filter is found for the given
@@ -647,14 +647,14 @@ Returns all values for the provided `filter_id`. Raises
 
 <a id="api-take_snapshot"></a>
 
-#### `EthereumTester.take_snapshot() -> snapshot_id`
+#### `PlatonTester.take_snapshot() -> snapshot_id`
 
 Takes a snapshot of the current chain state and returns the snapshot id.
 
 
 <a id="api-revert_to_snapshot"></a>
 
-#### `EthereumTester.revert_to_snapshot(snapshot_id)`
+#### `PlatonTester.revert_to_snapshot(snapshot_id)`
 
 Reverts the chain to the chain state associated with the given `snapshot_id`.
 Raises [`SnapshotNotFound`](#errors-SnapshotNotFound) if no snapshot is know
@@ -664,14 +664,14 @@ for the given id.
 
 <a id="errors-TransactionNotFound"></a>
 
-#### `eth_tester.exceptions.TransactionNotFound`
+#### `platon_tester.exceptions.TransactionNotFound`
 
 Raised in cases where a transaction cannot be found for the provided transaction hash.
 
 
 <a id="errors-BlockNotFound"></a>
 
-#### `eth_tester.exceptions.BlockNotFound`
+#### `platon_tester.exceptions.BlockNotFound`
 
 Raised in cases where a block cannot be found for either a provided number or
 hash.
@@ -679,30 +679,30 @@ hash.
 
 <a id="errors-FilterNotFound"></a>
 
-#### `eth_tester.exceptions.FilterNotFound`
+#### `platon_tester.exceptions.FilterNotFound`
 
 Raised in cases where a filter cannot be found for the provided filter id.
 
 
 <a id="errors-SnapshotNotFound"></a>
 
-#### `eth_tester.exceptions.SnapshotNotFound`
+#### `platon_tester.exceptions.SnapshotNotFound`
 
 Raised in cases where a snapshot cannot be found for the provided snapshot id.
 
 
 ## Backends
 
-Ethereum tester is written using a pluggable backend system.
+Platon tester is written using a pluggable backend system.
 
 ### Backend Dependencies
 
-Ethereum tester does not install any of the dependencies needed to use the
-various backends by default.  You can however install ethereum tester with the
+Platon tester does not install any of the dependencies needed to use the
+various backends by default.  You can however install platon tester with the
 necessary dependencies using the following method.
 
 ```bash
-$ pip install eth-tester[<backend-name>]
+$ pip install platon-tester[<backend-name>]
 ```
 
 You should replace `<backend-name>` with the name of the desired testing
@@ -718,17 +718,17 @@ The most direct way is to manually pass in the backend instance you wish to
 use.
 
 ```python
->>> from eth_tester import EthereumTester, MockBackend
->>> t = EthereumTester(backend=MockBackend())
+>>> from platon_tester import PlatonTester, MockBackend
+>>> t = PlatonTester(backend=MockBackend())
 ```
 
-Ethereum tester also supports configuration using the environment variable
-`ETHEREUM_TESTER_CHAIN_BACKEND`.  This should be set to the import path for the
+Platon tester also supports configuration using the environment variable
+`PLATON_TESTER_CHAIN_BACKEND`.  This should be set to the import path for the
 backend class you wish to use.
 
 ### Available Backends
 
-Ethereum tester can be used with the following backends.
+Platon tester can be used with the following backends.
 
 * PyEVM (experimental)
 * MockBackend
@@ -739,8 +739,8 @@ This backend has limited functionality.  It cannot perform any VM computations.
 It mocks out all of the objects and interactions.
 
 ```python
->>> from eth_tester import EthereumTester, MockBackend
->>> t = EthereumTester(MockBackend())
+>>> from platon_tester import PlatonTester, MockBackend
+>>> t = PlatonTester(MockBackend())
 ```
 
 #### PyEVM (experimental)
@@ -750,8 +750,8 @@ It mocks out all of the objects and interactions.
 Uses the experimental Py-EVM library.
 
 ```python
->>> from eth_tester import EthereumTester, PyEVMBackend
->>> t = EthereumTester(PyEVMBackend())
+>>> from platon_tester import PlatonTester, PyEVMBackend
+>>> t = PlatonTester(PyEVMBackend())
 ```
 
 
@@ -785,7 +785,7 @@ To generate a genesis parameters `dict` with an overridden parameters, pass a `g
 to `PyEVM.generate_genesis_params`.
 
 ```python
->>> from eth_tester import PyEVMBackend, EthereumTester
+>>> from platon_tester import PyEVMBackend, PlatonTester
 
 >>> genesis_overrides = {'gas_limit': 4500000}
 >>> custom_genesis_params = PyEVMBackend._generate_genesis_params(overrides=genesis_overrides)
@@ -812,9 +812,9 @@ to `PyEVM.generate_genesis_params`.
 
 Then pass the generated `custom_genesis_params` `dict` to the backend's `__init__`
 ```python
->>> from eth_tester import PyEVMBackend, EthereumTester
+>>> from platon_tester import PyEVMBackend, PlatonTester
 >>> pyevm_backend = PyEVMBackend(genesis_parameters=custom_genesis_params)
->>> t = EthereumTester(backend=pyevm_backend)
+>>> t = PlatonTester(backend=pyevm_backend)
 ```
 
 Overriding genesis state is similar to overriding genesis state, but requires the consideration of test accounts.
@@ -827,7 +827,7 @@ and optionally, the number of accounts to create.
 # Default Account Genesis State
 
 default_account_state = {
-    'balance': to_wei(1000000, 'ether'),
+    'balance': to_von(1000000, 'ether'),
     'storage': {},
     'code': b'',
     'nonce': 0,
@@ -837,22 +837,22 @@ default_account_state = {
 For Example, to create 3 test accounts, each with a balance of 100 ETH each: 
 
 ```python
->>> from eth_tester import EthereumTester, PyEVMBackend
->>>  from eth_utils import to_wei
+>>> from platon_tester import PlatonTester, PyEVMBackend
+>>>  from platon_utils import to_von
 
->>> state_overrides = {'balance': to_wei(100, 'ether')}
+>>> state_overrides = {'balance': to_von(100, 'ether')}
 >>> custom_genesis_state = PyEVMBackend._generate_genesis_state(overrides=state_overrides, num_accounts=3)
 
 # Then pass the generated `custom_genesis_state` `dict` to the backend's `__init__`
 
 >>> pyevm_backend = PyEVMBackend(genesis_state=custom_genesis_state)
->>> t = EthereumTester(backend=pyevm_backend)
+>>> t = PlatonTester(backend=pyevm_backend)
 ```
 
 
 ### Implementing Custom Backends
 
-The base class `eth_tester.backends.base.BaseChainBackend` is the recommended
+The base class `platon_tester.backends.base.BaseChainBackend` is the recommended
 base class to begin with if you wish to write your own backend.  
 
 Details on implementation are beyond the scope of this document.
@@ -860,12 +860,12 @@ Details on implementation are beyond the scope of this document.
 
 ## Data Formats
 
-Ethereum tester uses two formats for data.  
+Platon tester uses two formats for data.  
 
-* The *normal* format is the data format the is expected as input arguments to all `EthereumTester` methods as well as the return types from all method calls.
+* The *normal* format is the data format the is expected as input arguments to all `PlatonTester` methods as well as the return types from all method calls.
 * The *canonical* format is the data format that is used internally by the backend class.
 
-Ethereum tester enforces strict validation rules on these formats.
+Platon tester enforces strict validation rules on these formats.
 
 ### Canonical Formats
 
@@ -893,12 +893,12 @@ The normal format is intended for use by end users.
 > Beware! Here there be dragons...  This section of the documentation is only
 > relevant if you intend to build tooling on top of this library.
 
-The ethereum tester provides strong guarantees that backends can be swapped out
+The platon tester provides strong guarantees that backends can be swapped out
 seamlessly without effecting the data formats of both the input arguments and
 return values.  This is accomplished using a two step process of strict
 *normalization* and *validation*.
 
-All inputs to the methods of the `EthereumTester` are first validated then
+All inputs to the methods of the `PlatonTester` are first validated then
 normalized to a *canonical* format.  Return values are put through this process
 as well, first validating the data returned by the backend, and then
 normalizing it from the *canonical* format to the *normal* form before being
@@ -908,20 +908,20 @@ returned.
 <a id="normalization"></a>
 ### Normalization
 
-The `EthereumTester` delegates normalization to whatever `normalizer` was
+The `PlatonTester` delegates normalization to whatever `normalizer` was
 passed in during instantiation.  If no value was provided, the default
 normalizer will be used from
-`eth_tester.normalization.default.DefaultNormalizer`.
+`platon_tester.normalization.default.DefaultNormalizer`.
 
 The specifics of this object are beyong the scope of this document.
 
 <a id="validation"></a>
 ### Validation
 
-The `EthereumTester` delegates validation to whatever `validator` was
+The `PlatonTester` delegates validation to whatever `validator` was
 passed in during instantiation.  If no value was provided, the default
 validator will be used from
-`eth_tester.validation.default.DefaultValidator`.
+`platon_tester.validation.default.DefaultValidator`.
 
 The specifics of this object are beyong the scope of this document.
 
@@ -929,5 +929,5 @@ The specifics of this object are beyong the scope of this document.
 # Use with Web3.py
 
 See the [web3.py documentation](http://web3py.readthedocs.io/en/latest/) for
-information on the `EthereumTester` provider which integrates with this
+information on the `PlatonTester` provider which integrates with this
 library.

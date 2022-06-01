@@ -5,28 +5,28 @@ from eth.vm.forks import (
     FrontierVM,
     BerlinVM,
 )
-from eth_utils import to_wei
+from platon_utils import to_von
 
-from eth_tester import EthereumTester, PyEVMBackend
-from eth_tester.backends.pyevm.main import (
+from platon_tester import PlatonTester, PyEVMBackend
+from platon_tester.backends.pyevm.main import (
     generate_genesis_state_for_keys,
     get_default_account_keys,
     get_default_genesis_params,
 )
-from eth_tester.backends.pyevm.utils import is_pyevm_available
-from eth_tester.exceptions import ValidationError
-from eth_tester.utils.backend_testing import BaseTestBackendDirect, SIMPLE_TRANSACTION
+from platon_tester.backends.pyevm.utils import is_pyevm_available
+from platon_tester.exceptions import ValidationError
+from platon_tester.utils.backend_testing import BaseTestBackendDirect, SIMPLE_TRANSACTION
 
 
 ZERO_ADDRESS_HEX = "0x0000000000000000000000000000000000000000"
 
 
 @pytest.fixture
-def eth_tester():
+def platon_tester():
     if not is_pyevm_available():
         pytest.skip("PyEVM is not available")
     backend = PyEVMBackend()
-    return EthereumTester(backend=backend)
+    return PlatonTester(backend=backend)
 
 
 def test_custom_virtual_machines():
@@ -47,17 +47,17 @@ def test_custom_virtual_machines():
     assert not issubclass(VM_at_2, BerlinVM)
     assert issubclass(VM_at_3, BerlinVM)
 
-    # Right now, just test that EthereumTester doesn't crash
+    # Right now, just test that PlatonTester doesn't crash
     # Maybe some more sophisticated test to make sure the VMs are set correctly?
     # We should to make sure the VM config translates all the way to the main
     #   tester, maybe with a custom VM that hard-codes some block value? that can
     #   be found with tester.get_block_by_number()?
-    EthereumTester(backend=backend)
+    PlatonTester(backend=backend)
 
 
 class TestPyEVMBackendDirect(BaseTestBackendDirect):
     def test_generate_custom_genesis_state(self):
-        state_overrides = {"balance": to_wei(900000, "ether")}
+        state_overrides = {"balance": to_von(900000, "ether")}
         invalid_overrides = {"gato": "con botas"}
 
         # Test creating a specific number of accounts
@@ -97,7 +97,7 @@ class TestPyEVMBackendDirect(BaseTestBackendDirect):
             )
 
     def test_override_genesis_state(self):
-        state_overrides = {"balance": to_wei(900000, "ether")}
+        state_overrides = {"balance": to_von(900000, "ether")}
         test_accounts = 3
 
         # Initialize PyEVM backend with custom genesis state
@@ -113,8 +113,8 @@ class TestPyEVMBackendDirect(BaseTestBackendDirect):
             balance = pyevm_backend.get_balance(account=account)
             assert balance == state_overrides["balance"]
 
-        # Test integration with EthereumTester
-        tester = EthereumTester(backend=pyevm_backend)
+        # Test integration with PlatonTester
+        tester = PlatonTester(backend=pyevm_backend)
         for private_key in pyevm_backend.account_keys:
             account = private_key.public_key.to_checksum_address()
             balance = tester.get_balance(account=account)
@@ -158,18 +158,18 @@ class TestPyEVMBackendDirect(BaseTestBackendDirect):
         genesis_block = pyevm_backend.get_block_by_number(1)
         assert genesis_block["gas_limit"] == block_one_gas_limit
 
-        # Integrate with EthereumTester
-        tester = EthereumTester(backend=pyevm_backend)
+        # Integrate with PlatonTester
+        tester = PlatonTester(backend=pyevm_backend)
         genesis_block = tester.get_block_by_number(0)
         assert genesis_block["gas_limit"] == param_overrides["gas_limit"]
         genesis_block = tester.get_block_by_number(1)
         assert genesis_block["gas_limit"] == block_one_gas_limit
 
-    def test_send_transaction_invalid_from(self, eth_tester):
-        accounts = eth_tester.get_accounts()
+    def test_send_transaction_invalid_from(self, platon_tester):
+        accounts = platon_tester.get_accounts()
         assert accounts, "No accounts available for transaction sending"
 
         with pytest.raises(ValidationError, match=r'No valid "from" key was provided'):
             self._send_and_check_transaction(
-                eth_tester, SIMPLE_TRANSACTION, ZERO_ADDRESS_HEX
+                platon_tester, SIMPLE_TRANSACTION, ZERO_ADDRESS_HEX
             )

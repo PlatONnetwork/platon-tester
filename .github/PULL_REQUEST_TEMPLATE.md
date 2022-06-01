@@ -8,7 +8,7 @@
 
 ### To-Do:
 
-- [ ] Add entry to the [CHANGELOG](https://github.com/ethereum/eth-tester/blob/master/CHANGELOG)
+- [ ] Add entry to the [CHANGELOG](https://github.com/platonnetwork/platon-tester/blob/master/CHANGELOG)
 
 #### Cute Animal Picture
 

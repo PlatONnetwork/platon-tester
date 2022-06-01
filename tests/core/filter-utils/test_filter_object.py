@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import pytest
 
-from eth_tester.utils.filters import (
+from platon_tester.utils.filters import (
     Filter,
 )
 
